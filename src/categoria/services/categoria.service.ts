@@ -12,11 +12,15 @@ export class categoriaService {
         private categoriaRepository: Repository<Categoria>
 
     ) { }
+    
 
     async findAll(): Promise<Categoria[]> {
         return await this.categoriaRepository.find({
 
         });
+    }
+    relations: {
+        Produto: true
     }
 
 
@@ -27,6 +31,10 @@ export class categoriaService {
             where: {
                 id
             },
+
+            relations: {
+                Produto: true
+            }
 
 
         });
@@ -44,6 +52,11 @@ export class categoriaService {
                 tipo: ILike(`%${tipo}%`)
             },
 
+            relations: {
+                Produto: true
+            }
+
+
 
         })
 
@@ -52,6 +65,7 @@ export class categoriaService {
     async create(categoria: Categoria): Promise<Categoria> {
         return await this.categoriaRepository.save(categoria);
     }
+
 
     async update(categoria: Categoria): Promise<Categoria> {
 
